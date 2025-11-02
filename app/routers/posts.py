@@ -13,13 +13,6 @@ router = APIRouter(prefix="/posts", tags=["Posts"])
 # @router.get('/all')
 def get_all_posts(db: Session = Depends(get_db),
                   limit: int = 10, skip: int = 0, search: Optional[str] = ""):
-    # posts_query = db.query(models.Post)
-    # total_posts = posts_query.count()
-    # # sorted accroding to id in descending order
-    # posts = posts_query.filter(models.Post.title.contains(search)).order_by(models.Post.id.desc()).limit(limit).offset(
-    #     skip).all()
-    # return {"total_posts": total_posts, "posts": posts}
-
     total_count = db.query(models.Post).count()
     result_query = db.query(models.Post, func.count(models.Vote.post_id).label("votes"))  # tuple (Post, votes)
 
@@ -29,7 +22,6 @@ def get_all_posts(db: Session = Depends(get_db),
                                                    models.Post.id == models.Vote.post_id,
                                                    isouter=True).group_by(models.Post.id).limit(limit).offset(
         skip).all()
-    print()  # Debugging line to check the result
 
     return {"total_posts": total_count, "posts": result}
 
@@ -59,7 +51,7 @@ def get_latest_post(db: Session = Depends(get_db),
     return post
 
 
-@router.get('/', response_model=List[schemas.PostResponse])  # Because we expect a list of posts as a response.
+@router.get('/', response_model=List[schemas.PostResponse])  # We expect a list of posts as a response.
 def get_post_user(db: Session = Depends(get_db),
                   current_user: int = Depends(oauth2.get_current_user),
                   limit: int = 10):

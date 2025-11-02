@@ -26,6 +26,7 @@ class User(Base):
 
     id = Column(BIGINT, primary_key=True, index=True, nullable=False)
     email = Column(String(255), unique=True, index=True, nullable=False)
+    name = Column(String(255), nullable=False)
     password = Column(String(255), nullable=False)
     created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
 

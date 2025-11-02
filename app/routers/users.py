@@ -13,6 +13,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password_to_hash, salt).decode('utf-8')
     new_user = models.User(
+        name=user.name,
         email=user.email,
         password=hashed_password
     )
