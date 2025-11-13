@@ -1,7 +1,4 @@
-# SIWA Benutzerverwaltung (FastAPI Projekt)
-
-Dies ist ein FastAPI-Projekt, das eine einfache Benutzerverwaltung mit einer MariaDB-Datenbank implementiert. Das
-Projekt ermöglicht das Anzeigen und Hinzufügen von Benutzern über ein Webinterface mit AJAX-Unterstützung.
+# (FastAPI Projekt)
 
 ## Funktionen
 
